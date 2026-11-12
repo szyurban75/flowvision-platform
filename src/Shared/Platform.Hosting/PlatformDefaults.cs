@@ -1,5 +1,7 @@
 using System.Text.Json;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,8 +31,17 @@ public static class PlatformDefaults
         var serviceName = ServiceName(builder.Configuration);
         builder.AddPlatformFileLogging(serviceName);
         builder.Services.Configure<DatabaseOptions>(builder.Configuration.GetSection(DatabaseOptions.SectionName));
+        // All services share one key ring so a cookie issued by Identity can be read by Admin, ShopFloor and Documents.
+        builder.Services.AddDataProtection()
+            .SetApplicationName("FlowVision")
+            .PersistKeysToFileSystem(new DirectoryInfo(DataProtectionKeysPath(builder.Configuration)));
         return builder;
     }
+
+    /// <summary>Folder for the shared key ring. Configuration key Platform:DataProtectionKeysPath; default %ProgramData%\FlowVision\keys.</summary>
+    public static string DataProtectionKeysPath(IConfiguration configuration) =>
+        configuration[$"{SectionName}:DataProtectionKeysPath"]
+        ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "FlowVision", "keys");
 
     public static string ServiceName(IConfiguration configuration) =>
         configuration[$"{SectionName}:ServiceName"] ?? throw new InvalidOperationException("Platform:ServiceName is not set.");

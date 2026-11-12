@@ -11,6 +11,11 @@ public class ScriptMigratorTests
         "db_FlowVision_2.0.36.sql", "readme.txt",
     ];
 
+    private static readonly string[] ExpectedOrder =
+    [
+        "db_FlowVision_2.0.9.sql", "db_mod_FlowVision_2.0.9.sql", "db_mod_FlowVision_2.0.10.sql", "db_FlowVision_2.0.36.sql",
+    ];
+
     private static string NewFolder()
     {
         var folder = Path.Combine(Path.GetTempPath(), "fv-migrations-" + Guid.NewGuid().ToString("N"));
@@ -32,7 +37,7 @@ public class ScriptMigratorTests
             var pending = ScriptMigrator.FindPending(folder, new Version(2, 0, 8));
 
             Assert.Equal(
-                new[] { "db_FlowVision_2.0.9.sql", "db_mod_FlowVision_2.0.9.sql", "db_mod_FlowVision_2.0.10.sql", "db_FlowVision_2.0.36.sql" },
+                ExpectedOrder,
                 pending.Select(script => script.FileName).ToArray());
         }
         finally

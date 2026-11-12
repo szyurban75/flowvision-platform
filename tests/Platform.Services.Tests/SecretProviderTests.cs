@@ -1,9 +1,11 @@
+using System.Runtime.Versioning;
 using Platform.Data;
 using Platform.Secrets;
 using Xunit;
 
 namespace Platform.Services.Tests;
 
+[SupportedOSPlatform("windows")]
 public class SecretProviderTests
 {
     [SkippableFact]
@@ -39,7 +41,7 @@ public class SecretProviderTests
     [Fact]
     public void Gmsa_ReturnsNoPassword()
     {
-        ISecretProvider provider = new GmsaConnectionProvider();
+        var provider = new GmsaConnectionProvider();
 
         Assert.Null(provider.GetSqlPassword());
     }
