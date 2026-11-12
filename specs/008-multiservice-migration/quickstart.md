@@ -6,7 +6,7 @@
 
 - Windows 10 or 11, or Windows Server 2022.
 - .NET 10 SDK (LTS).
-- Node.js 22 LTS (for the React builds).
+- Node.js 24 LTS (for the React builds; matches the CI workflow).
 - SQL Server Express 2022 or Developer edition, with two databases: `FLOWVISION2_TEST` (for development) and `FLOWVISION2` (only for the pilot, and only with the desktop application closed while the migration runs).
 - Git and access to the GitHub repository.
 
