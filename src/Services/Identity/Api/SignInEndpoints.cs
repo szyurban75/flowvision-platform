@@ -1,22 +1,14 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Platform.Auth;
+using Platform.Hosting;
 
 namespace Identity.Api;
 
 public sealed record SignInRequest(string Username, string Password, string Interface);
-
-/// <summary>Cookie scheme per interface (Q1-B): signing in to one interface does not sign in to another.</summary>
-public static class InterfaceCookies
-{
-    public static string SchemeFor(string interfaceName) => "FlowVision." + interfaceName;
-
-    public const string RoleClaim = "fv_role";
-}
 
 /// <summary>POST /api/identity/sign-in, POST /api/identity/sign-out, GET /api/identity/me (T048).</summary>
 public static class SignInEndpoints
@@ -90,31 +82,4 @@ public static class SignInEndpoints
         return app;
     }
 
-    /// <summary>Registers one cookie scheme per interface.</summary>
-    public static AuthenticationBuilder AddInterfaceCookies(this AuthenticationBuilder builder)
-    {
-        foreach (var name in new[] { Interfaces.Admin, Interfaces.ShopFloor, Interfaces.Documents })
-        {
-            builder.AddCookie(InterfaceCookies.SchemeFor(name), options =>
-            {
-                options.Cookie.Name = "FlowVision." + name;
-                options.Cookie.HttpOnly = true;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.SlidingExpiration = true;
-                options.ExpireTimeSpan = TimeSpan.FromHours(8);
-                options.Events.OnRedirectToLogin = context =>
-                {
-                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    return Task.CompletedTask;
-                };
-                options.Events.OnRedirectToAccessDenied = context =>
-                {
-                    context.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    return Task.CompletedTask;
-                };
-            });
-        }
-        return builder;
-    }
 }

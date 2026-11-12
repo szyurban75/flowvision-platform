@@ -12,5 +12,6 @@
     <ProjectReference Include="..\Platform.Secrets\Platform.Secrets.csproj" />
     <ProjectReference Include="..\Platform.Logging\Platform.Logging.csproj" />
     <ProjectReference Include="..\Platform.SchemaCheck\Platform.SchemaCheck.csproj" />
+    <ProjectReference Include="..\Platform.Auth\Platform.Auth.csproj" />
   </ItemGroup>
 </Project>
