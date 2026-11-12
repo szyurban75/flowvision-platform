@@ -1,0 +1,25 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Services/">
+    <Project Path="src/Services/Admin/Admin.csproj" />
+    <Project Path="src/Services/Documents/Documents.csproj" />
+    <Project Path="src/Services/Identity/Identity.csproj" />
+    <Project Path="src/Services/ShopFloor/ShopFloor.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/Platform.Auth/Platform.Auth.csproj" />
+    <Project Path="src/Shared/Platform.Data/Platform.Data.csproj" />
+    <Project Path="src/Shared/Platform.Hosting/Platform.Hosting.csproj" />
+    <Project Path="src/Shared/Platform.Logging/Platform.Logging.csproj" />
+    <Project Path="src/Shared/Platform.SchemaCheck/Platform.SchemaCheck.csproj" />
+    <Project Path="src/Shared/Platform.Secrets/Platform.Secrets.csproj" />
+  </Folder>
+  <Folder Name="/src/Tools/">
+    <Project Path="src/Tools/MigrationRunner/MigrationRunner.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Platform.Data.Tests/Platform.Data.Tests.csproj" />
+    <Project Path="tests/Platform.Services.Tests/Platform.Services.Tests.csproj" />
+    <Project Path="tests/ShopFloor.CostCalc.Tests/ShopFloor.CostCalc.Tests.csproj" />
+  </Folder>
+</Solution>

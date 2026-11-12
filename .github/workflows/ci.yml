@@ -1,0 +1,37 @@
+﻿name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  dotnet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: dotnet build Platform.slnx --configuration Release
+      - run: dotnet test Platform.slnx --configuration Release --no-build
+
+  web:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [shopfloor, admin, documents]
+    defaults:
+      run:
+        working-directory: web/${{ matrix.app }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/${{ matrix.app }}/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build

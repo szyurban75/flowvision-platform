@@ -1,0 +1,27 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+csharp_style_namespace_declarations = file_scoped:warning
+dotnet_naming_rule.interfaces_start_with_i.severity = warning
+dotnet_naming_rule.interfaces_start_with_i.symbols = interface_symbols
+dotnet_naming_rule.interfaces_start_with_i.style = begins_with_i
+dotnet_naming_rule.types_pascal_case.severity = warning
+dotnet_naming_rule.types_pascal_case.symbols = type_symbols
+dotnet_naming_rule.types_pascal_case.style = pascal_case
+dotnet_naming_rule.members_pascal_case.severity = warning
+dotnet_naming_rule.members_pascal_case.symbols = member_symbols
+dotnet_naming_rule.members_pascal_case.style = pascal_case
+dotnet_naming_symbols.interface_symbols.applicable_kinds = interface
+dotnet_naming_symbols.type_symbols.applicable_kinds = class,struct,enum,delegate
+dotnet_naming_symbols.member_symbols.applicable_kinds = method,property,event
+dotnet_naming_style.begins_with_i.required_prefix = I
+dotnet_naming_style.begins_with_i.capitalization = pascal_case
+dotnet_naming_style.pascal_case.capitalization = pascal_case

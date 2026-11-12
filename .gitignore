@@ -1,0 +1,12 @@
+# Build output
+bin/
+obj/
+dist/
+
+# Node
+node_modules/
+
+# Local secrets must never be committed (see ADR-001 secrets section)
+*.secrets.json
+appsettings.Local.json
+secrets/
