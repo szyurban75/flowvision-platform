@@ -1,9 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Platform.Data\Platform.Data.csproj" />
+    <ProjectReference Include="..\Platform.Secrets\Platform.Secrets.csproj" />
+    <ProjectReference Include="..\Platform.Logging\Platform.Logging.csproj" />
+    <ProjectReference Include="..\Platform.SchemaCheck\Platform.SchemaCheck.csproj" />
+  </ItemGroup>
 </Project>
