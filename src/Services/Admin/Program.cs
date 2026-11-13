@@ -27,6 +27,13 @@ app.MapPlatformHealth();
 app.MapPasswordResetEndpoints();
 
 // Refuses to start if PLATFORM_SCHEMA_VERSION does not match Platform:ExpectedSchemaVersion (FR-006).
-await app.EnsureSchemaVersionAsync();
+// Integration tests run without SQL Server, so they use the "IntegrationTests" environment and skip this check.
+if (!app.Environment.IsEnvironment("IntegrationTests"))
+{
+    await app.EnsureSchemaVersionAsync();
+}
 
 app.Run();
+
+/// <summary>Exposed for WebApplicationFactory in Platform.Services.Tests.</summary>
+public partial class Program;
