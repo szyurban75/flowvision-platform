@@ -22,4 +22,8 @@
     <ProjectReference Include="..\..\src\Services\ShopFloor\ShopFloor.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Golden\operations-golden.csv" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
